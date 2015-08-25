@@ -26,7 +26,6 @@
     event.preventDefault();
     if (View.DIRS[event.keyCode]) {
       this.board.snake.turn(View.DIRS[event.keyCode]);
-      debugger
     }
   };
 

@@ -32,4 +32,12 @@
     return result;
   };
 
+  Board.prototype.onBoard = function(coord) {
+    if (coord.x < 0 || coord.x >= this.dim ||
+        coord.y < 0 || coord.y >= this.dim) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 })();

@@ -58,5 +58,8 @@
   View.prototype.step = function() {
     this.board.snake.move();
     this.render();
+    if (!this.board.snake.alive) {
+      alert("you died!!");
+    }
   };
 })();

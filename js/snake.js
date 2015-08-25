@@ -7,6 +7,7 @@
     this.direction = "N";
     this.turning = false;
     this.growTurns = 0;
+    this.alive = true;
     var center = Math.floor(board.dim / 2);
     this.segments = [new SnakeGame.Coord(center, center)];
   };
@@ -24,7 +25,12 @@
 
   Snake.prototype.move = function() {
     var newCoord = this.head().plus(Snake.DIRS[this.direction]);
-    this.segments.push(newCoord);
+
+    if (!this.isValid(newCoord)) {
+      this.alive = false;
+    } else {
+      this.segments.push(newCoord);
+    }
 
     if (this.eatApple()) {
       this.board.apple.place();
@@ -58,6 +64,21 @@
       return true;
     } else {
       return false;
+    }
+  };
+
+  Snake.prototype.isValid = function(coord) {
+    if (!this.board.onBoard(coord)) {
+      return false;
+    } else {
+      var overlapping = false;
+      this.segments.forEach(function(segment) {
+        if (segment.equals(coord)) {
+          overlapping = true;
+          return true;
+        }
+      });
+      return !overlapping;
     }
   };
 })();

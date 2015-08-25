@@ -32,6 +32,8 @@
       this.segments.push(newCoord);
     }
 
+    this.turning = false;
+
     if (this.eatApple()) {
       this.board.apple.place();
     }
@@ -44,7 +46,11 @@
   };
 
   Snake.prototype.turn = function(direction) {
-    this.direction = direction;
+    if (!this.turning &&
+        !Snake.DIRS[this.direction].isOpposite(Snake.DIRS[direction])) {
+      this.direction = direction;
+      this.turning = true;
+    }
   };
 
   Snake.prototype.occupies = function(pos) {

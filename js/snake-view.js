@@ -59,7 +59,8 @@
     this.board.snake.move();
     this.render();
     if (!this.board.snake.alive) {
-      alert("you died!!");
+      this.$el.append("<div class='game-over'><h1>Game Over</h1></div>");
+      window.clearInterval(this.intervalId);
     }
   };
 })();

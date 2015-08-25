@@ -7,12 +7,9 @@
     this.$el = $el;
     this.board = new SnakeGame.Board(20);
     this.makeGrid();
+    this.keyPressPrompt();
     $(window).on("keydown", this.handleKeyEvent.bind(this));
-
-    this.intervalId = setInterval(
-      this.step.bind(this),
-      100
-    );
+    $(window).on("keydown", this.startGame.bind(this));
   };
 
   View.DIRS = {
@@ -20,6 +17,22 @@
     39: "E",
     40: "S",
     37: "W"
+  };
+
+  View.prototype.keyPressPrompt = function() {
+    var $over = $("<div class='game-start'>Press any key to start</div>");
+    this.$el.append($over);
+  };
+
+  View.prototype.startGame = function(event) {
+    event.preventDefault();
+    if (!this.intervalId) {
+      this.$el.find(".game-start").remove();
+      this.intervalId = setInterval(
+        this.step.bind(this),
+        100
+      );
+    }
   };
 
   View.prototype.handleKeyEvent = function(event) {
@@ -59,8 +72,17 @@
     this.board.snake.move();
     this.render();
     if (!this.board.snake.alive) {
-      this.$el.append("<div class='game-over'><h1>Game Over</h1></div>");
+      var $over = $("<div class='game-over'>Game Over</div>");
+      $over.append("<br><br><button class='new-game'>Play Again?</button>");
+      this.$el.append($over);
       window.clearInterval(this.intervalId);
+      $(".new-game").on("click", function(event) {
+        event.preventDefault();
+        this.intervalId = null;
+        this.board = new SnakeGame.Board(20);
+        this.makeGrid();
+        this.keyPressPrompt();
+      }.bind(this));
     }
   };
 })();

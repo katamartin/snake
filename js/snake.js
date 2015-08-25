@@ -7,6 +7,7 @@
     this.direction = "N";
     this.turning = false;
     this.growTurns = 0;
+    this.score = 0;
     this.alive = true;
     var center = Math.floor(board.dim / 2);
     this.segments = [new SnakeGame.Coord(center, center)];
@@ -67,6 +68,7 @@
   Snake.prototype.eatApple = function() {
     if (this.head().equals(this.board.apple.position)) {
       this.growTurns += 3;
+      this.score += 10;
       return true;
     } else {
       return false;

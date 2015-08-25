@@ -28,6 +28,8 @@
     event.preventDefault();
     if (!this.intervalId) {
       this.$el.find(".game-start").remove();
+      this.$el.find(".score").remove();
+      this.$el.append("<div class='score'>0</div>");
       this.intervalId = setInterval(
         this.step.bind(this),
         100
@@ -58,6 +60,7 @@
   View.prototype.render = function() {
     this.updateClasses(this.board.snake.segments, "snake");
     this.updateClasses([this.board.apple.position], "apple");
+    this.$el.find(".score").html(this.board.snake.score);
   };
 
   View.prototype.updateClasses = function(items, className) {
@@ -73,6 +76,7 @@
     this.render();
     if (!this.board.snake.alive) {
       var $over = $("<div class='game-over'>Game Over</div>");
+      $over.append("<br><br>Final Score: " + this.board.snake.score);
       $over.append("<br><br><button class='new-game'>Play Again?</button>");
       this.$el.append($over);
       window.clearInterval(this.intervalId);

@@ -13,6 +13,7 @@ figure {
   left: 50%;
   margin-left: -200px;
   overflow: hidden;
+  background-color: #C2D0BC;
 }
 
 ul {
@@ -34,6 +35,10 @@ li {
   color: white;
   background-color: rgba(0, 0, 0, 0.65);
   padding-top: 30%;
+}
+
+.score {
+  position: absolute;
 }
 
 .snake {

@@ -6,6 +6,7 @@
     this.board = board;
     this.direction = "N";
     this.turning = false;
+    this.growTurns = 0;
     var center = Math.floor(board.dim / 2);
     this.segments = [new SnakeGame.Coord(center, center)];
   };
@@ -24,10 +25,39 @@
   Snake.prototype.move = function() {
     var newCoord = this.head().plus(Snake.DIRS[this.direction]);
     this.segments.push(newCoord);
-    this.segments.shift();
+
+    if (this.eatApple()) {
+      this.board.apple.place();
+    }
+
+    if (this.growTurns > 0) {
+      this.growTurns -= 1;
+    } else {
+      this.segments.shift();
+    }
   };
 
   Snake.prototype.turn = function(direction) {
     this.direction = direction;
-  }
+  };
+
+  Snake.prototype.occupies = function(pos) {
+    var occupying = false;
+    this.segments.forEach(function(segment) {
+      if (segment.x === pos[0] && segment.y === pos[1]) {
+        occupying = true;
+        return true;
+      }
+    });
+    return occupying;
+  };
+
+  Snake.prototype.eatApple = function() {
+    if (this.head().equals(this.board.apple.position)) {
+      this.growTurns += 3;
+      return true;
+    } else {
+      return false;
+    }
+  };
 })();

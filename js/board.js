@@ -6,6 +6,7 @@
   var Board = SnakeGame.Board = function(dim) {
     this.dim = dim;
     this.snake = new SnakeGame.Snake(this);
+    this.apple = new SnakeGame.Apple(this);
   };
 
   Board.prototype.blankGrid = function (dim) {

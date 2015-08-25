@@ -1,0 +1,26 @@
+html, body, figure, figcaption, ul, li, h1 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  text-align: inherit;
+}
+
+figure {
+  display: inline-block;
+  border: 10px solid black;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+.snake {
+  background-color: black;
+}

@@ -6,6 +6,7 @@
   var View = SnakeGame.View = function($el) {
     this.$el = $el;
     this.board = new SnakeGame.Board(20);
+    this.makeGrid();
     $(window).on("keydown", this.handleKeyEvent.bind(this));
 
     this.intervalId = setInterval(
@@ -29,8 +30,33 @@
     }
   };
 
+  View.prototype.makeGrid = function() {
+    var html = "";
+    for (var i = 0; i < this.board.dim; i++) {
+      html += "<ul>";
+      for (var j = 0; j < this.board.dim; j++) {
+        html += "<li></li>";
+      }
+      html += "</ul>";
+    }
+    this.$el.html(html);
+    this.$li = this.$el.find("li");
+  };
+
+  View.prototype.render = function() {
+    this.updateClasses(this.board.snake.segments, "snake");
+  };
+
+  View.prototype.updateClasses = function(items, className) {
+    this.$li.filter("." + className).removeClass(className);
+    items.forEach(function(item) {
+      var liCount = item.x * this.board.dim + item.y;
+      this.$li.eq(liCount).addClass(className);
+    }.bind(this))
+  };
+
   View.prototype.step = function() {
     this.board.snake.move();
-    this.$el.html("<pre>" + this.board.render() + "</pre>");
+    this.render();
   };
 })();

@@ -60,6 +60,8 @@
   View.prototype.render = function() {
     this.updateClasses(this.board.snake.segments, "snake");
     this.updateClasses([this.board.apple.position], "apple");
+    this.removeRotations();
+    this.updateHeadAndTail();
     this.$el.find(".score").html(this.board.snake.score);
   };
 
@@ -71,9 +73,25 @@
     }.bind(this))
   };
 
+  View.prototype.removeRotations = function() {
+    var dirs = ["N", "S", "E", "W"];
+    dirs.forEach(function(dir) {
+      this.$li.filter("." + dir).removeClass(dir);
+    }.bind(this));
+  };
+
+  View.prototype.updateHeadAndTail = function() {
+    var dir = this.board.snake.direction;
+    this.updateClasses([this.board.snake.head()], "head");
+    this.updateClasses([this.board.snake.head()], dir);
+    if (this.board.snake.segments.length > 1) {
+      this.updateClasses([this.board.snake.segments[0]], "tail");
+      this.updateClasses([this.board.snake.segments[0]], dir);
+    }
+  };
+
   View.prototype.step = function() {
     this.board.snake.move();
-    this.render();
     if (!this.board.snake.alive) {
       var $over = $("<div class='game-over'>Game Over</div>");
       $over.append("<br><br>Final Score: " + this.board.snake.score);
@@ -87,6 +105,8 @@
         this.makeGrid();
         this.keyPressPrompt();
       }.bind(this));
+    } else {
+      this.render();
     }
   };
 })();

@@ -10,6 +10,7 @@ figure {
   position: relative;
   display: inline-block;
   border: 10px solid black;
+  border-radius: 5px;
   left: 50%;
   margin-left: -200px;
   overflow: hidden;
@@ -54,8 +55,19 @@ li {
 
 .snake {
   background-color: black;
+  border: 1px solid transparent;
+  box-sizing: border-box;
 }
 
 .apple {
   background-color: red;
+}
+
+.snake.tail {
+  background-color: red;
+}
+
+.snake.head {
+  background-color: blue;
+  /*background-image: url("../head.png");*/
 }

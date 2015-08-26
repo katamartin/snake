@@ -87,7 +87,8 @@
     if (this.board.snake.segments.length > 1) {
       var tail = this.board.snake.segments[0];
       this.updateClasses([tail], "tail");
-      this.$li.eq(tail.x * this.board.dim + tail.y).addClass(dir);
+      var tailDir = this.board.snake.tailDir();
+      this.$li.eq(tail.x * this.board.dim + tail.y).addClass(tailDir);
     }
   };
 

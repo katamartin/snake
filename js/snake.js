@@ -89,4 +89,10 @@
       return !overlapping;
     }
   };
+
+  Snake.prototype.tailDir = function () {
+    if (this.segments.length > 1) {
+      return this.segments[0].offset(this.segments[1]);
+    }
+  };
 })();

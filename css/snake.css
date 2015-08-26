@@ -64,10 +64,25 @@ li {
 }
 
 .snake.tail {
-  background-color: red;
+  background-color: transparent;
+  background-size: 100% 100%;
+  background-image: url("../tail.png");
 }
 
 .snake.head {
-  background-color: blue;
-  /*background-image: url("../head.png");*/
+  background-color: transparent;
+  background-size: 100% 100%;
+  background-image: url("../head.png");
+}
+
+.E {
+  -webkit-transform: rotate(90deg);
+}
+
+.S {
+  -webkit-transform: rotate(180deg);
+}
+
+.W {
+  -webkit-transform: rotate(270deg);
 }

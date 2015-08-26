@@ -82,11 +82,12 @@
 
   View.prototype.updateHeadAndTail = function() {
     var dir = this.board.snake.direction;
-    this.updateClasses([this.board.snake.head()], "head");
     this.updateClasses([this.board.snake.head()], dir);
+    this.updateClasses([this.board.snake.head()], "head");
     if (this.board.snake.segments.length > 1) {
-      this.updateClasses([this.board.snake.segments[0]], "tail");
-      this.updateClasses([this.board.snake.segments[0]], dir);
+      var tail = this.board.snake.segments[0];
+      this.updateClasses([tail], "tail");
+      this.$li.eq(tail.x * this.board.dim + tail.y).addClass(dir);
     }
   };
 

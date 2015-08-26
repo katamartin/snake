@@ -54,25 +54,25 @@ li {
 }
 
 .snake {
-  background-color: black;
-  border: 1px solid transparent;
-  box-sizing: border-box;
+  background-color: #038A14;
 }
 
 .apple {
-  background-color: red;
+  background-color: transparent;
+  background-size: 100% 100%;
+  background-image: url("../apple2.png");
 }
 
 .snake.tail {
   background-color: transparent;
   background-size: 100% 100%;
-  background-image: url("../tail.png");
+  background-image: url("../green_tail.png");
 }
 
 .snake.head {
   background-color: transparent;
   background-size: 100% 100%;
-  background-image: url("../head.png");
+  background-image: url("../green_head.png");
 }
 
 .E {

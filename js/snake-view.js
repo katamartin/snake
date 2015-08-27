@@ -10,6 +10,7 @@
     this.keyPressPrompt();
     $(window).on("keydown", this.handleKeyEvent.bind(this));
     $(window).on("keydown", this.startGame.bind(this));
+    $(window).on("keydown", this.pauseGame.bind(this));
   };
 
   View.DIRS = {
@@ -19,17 +20,27 @@
     37: "W"
   };
 
+  View.prototype.pauseGame = function(event) {
+    event.preventDefault();
+    if (event.keyCode === 80) {
+      window.clearInterval(this.intervalId);
+      this.intervalId = null;
+      var $pause = $("<div class='message'>Press any key to resume</div>");
+      this.$el.append($pause);
+    }
+  };
+
   View.prototype.keyPressPrompt = function() {
-    var $over = $("<div class='game-start'>Press any key to start</div>");
+    var $over = $("<div class='message'>Press any key to start</div>");
     this.$el.append($over);
   };
 
   View.prototype.startGame = function(event) {
     event.preventDefault();
     if (!this.intervalId) {
-      this.$el.find(".game-start").remove();
+      this.$el.find(".message").remove();
       this.$el.find(".score").remove();
-      this.$el.append("<div class='score'>0</div>");
+      this.$el.append("<div class='score'>" + this.board.snake.score + "</div>");
       this.intervalId = setInterval(
         this.step.bind(this),
         100
@@ -95,7 +106,7 @@
   View.prototype.step = function() {
     this.board.snake.move();
     if (!this.board.snake.alive) {
-      var $over = $("<div class='game-over'>Game Over</div>");
+      var $over = $("<div class='message'>Game Over</div>");
       $over.append("<br><br>Final Score: " + this.board.snake.score);
       $over.append("<br><br><button class='new-game'>Play Again?</button>");
       this.$el.append($over);

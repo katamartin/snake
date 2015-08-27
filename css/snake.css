@@ -43,7 +43,7 @@ li {
   height: 20px;
 }
 
-.game-over, .game-start {
+.message {
   position: absolute;
   font-size: 32px;
   width: 100%;

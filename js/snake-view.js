@@ -62,7 +62,7 @@
     this.updateClasses([this.board.apple.position], "apple");
     this.removeRotations();
     this.updateHeadAndTail();
-    this.$el.find(".score").html(this.board.snake.score);
+    this.$el.find(".score").html("Score: " + this.board.snake.score);
   };
 
   View.prototype.updateClasses = function(items, className) {

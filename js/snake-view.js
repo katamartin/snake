@@ -22,22 +22,22 @@
 
   View.prototype.pauseGame = function(event) {
     event.preventDefault();
-    if (event.keyCode === 80) {
+    if (this.intervalId && event.keyCode === 80) {
       window.clearInterval(this.intervalId);
       this.intervalId = null;
-      var $pause = $("<div class='message'>Press any key to resume</div>");
+      var $pause = $("<div class='message'>Press space to resume</div>");
       this.$el.append($pause);
     }
   };
 
   View.prototype.keyPressPrompt = function() {
-    var $over = $("<div class='message'>Press any key to start</div>");
+    var $over = $("<div class='message'>Press space to start</div>");
     this.$el.append($over);
   };
 
   View.prototype.startGame = function(event) {
     event.preventDefault();
-    if (!this.intervalId) {
+    if (!this.intervalId && event.keyCode === 32) {
       this.$el.find(".message").remove();
       this.$el.find(".score").remove();
       this.$el.append("<div class='score'>" + this.board.snake.score + "</div>");

@@ -40,6 +40,10 @@
     if (!this.intervalId && event.keyCode === 32) {
       this.$el.find(".message").remove();
       this.$el.find(".score").remove();
+      if (!this.board.snake.alive) {
+        this.board = new SnakeGame.Board(20);
+        this.makeGrid();
+      }
       this.$el.append("<div class='score'>" + this.board.snake.score + "</div>");
       this.intervalId = setInterval(
         this.step.bind(this),
@@ -108,16 +112,10 @@
     if (!this.board.snake.alive) {
       var $over = $("<div class='message'>Game Over</div>");
       $over.append("<br><br>Final Score: " + this.board.snake.score);
-      $over.append("<br><br><button class='new-game'>Play Again?</button>");
+      $over.append("<br><br>Press space to play again");
       this.$el.append($over);
       window.clearInterval(this.intervalId);
-      $(".new-game").on("click", function(event) {
-        event.preventDefault();
-        this.intervalId = null;
-        this.board = new SnakeGame.Board(20);
-        this.makeGrid();
-        this.keyPressPrompt();
-      }.bind(this));
+      this.intervalId = null;
     } else {
       this.render();
     }
